@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brit IQ | The Cheeky vs. Serious UK Travel Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [isCheeky, setIsCheeky] = useState(true);
+      const [filterCategory, setFilterCategory] = useState('All');
+      const [quizScore, setQuizScore] = useState(null);
+      const [mealDealSelection, setMealDealSelection] = useState({ main: '', side: '', drink: '' });
+      const [mealDealResult, setMealDealResult] = useState('');
+
+      const cityData = [
+        {
+          id: 'manchester',
+          emoji: '🐝',
+          title: 'The Manchester Capital Guide',
+          subtitle: 'Pubs, Grub, & Trams',
+          category: 'Regional Cities',
+          cheeky: 'Welcome to the rain capital of Western Europe. If it’s not actively raining, it’s about to rain, or you are standing under a leaking Victorian railway bridge. Dress code in the Northern Quarter requires carrying a bucket hat and acting like Oasis split up yesterday. On the Metrolink tram, staring straight ahead at the metal floor poles is mandatory—making eye contact with a fellow commuter during rush hour is punishable by public awkwardness.',
+          cheekyTip: 'Never call a barm a "roll" or a "cob" unless you want to start a 40-minute pub argument.',
+          serious: 'Manchester is the UK\'s capital of culture and northern transit. The Metrolink tram network uses contactless tap-in/tap-out readers at every platform with automated zonal daily caps (Zones 1–4). Explore the historic boozers of Castlefield (The Marble Arch, Peveril of the Peak) and craft beer havens in the Northern Quarter. Try authentic local staples like Manchester Tart and proper steak pies at traditional pubs.',
+          seriousTips: ['Touch in and out at yellow reader posts before boarding the tram.', 'Manchester Piccadilly is the central hub for intercity rail connections.'],
+          affiliateText: '🚆 Book Trains to Manchester Piccadilly (Trainline)',
+          affiliateUrl: 'https://www.thetrainline.com'
+        },
+        {
+          id: 'london',
+          emoji: '🎡',
+          title: 'London Transit & Commute Survival',
+          subtitle: 'Tube Etiquette & Split Ticketing',
+          category: 'Transport',
+          cheeky: 'Standing on the left side of an escalator in London is considered an act of war. If you hear a quiet, aggressive "tut" behind you, prepare to move immediately. The Tube line named "Central" is actually an oven disguised as a train line during summer.',
+          cheekyTip: 'If anyone talks to you on the Tube, pretend you are dead.',
+          serious: 'London transport operates on contactless tap-in/tap-out (Oyster or bank card) with automatic daily capping across Zones 1–6. Elizabeth Line is the fastest route from Heathrow Airport to Central London. Always book advance rail tickets to save up to 60%.',
+          seriousTips: ['Daily TfL zone capping automatically calculates the cheapest fare.', 'Never buy paper single tickets—they cost double contactless rates.'],
+          affiliateText: '🎟️ Get Unlimited Visitor Passes & TfL Rail Cards',
+          affiliateUrl: 'https://www.thetrainline.com'
+        },
+        {
+          id: 'liverpool',
+          emoji: '🎵',
+          title: 'The Liverpool Capital Guide',
+          subtitle: 'Beatles, Scouse Culture, & Mersey Rail',
+          category: 'Regional Cities',
+          cheeky: 'Calling someone "mate" within 5 minutes of landing at Lime Street is entry-level behavior; you will be called "lad" or "boss" before you leave the station. Do not attempt a Beatles impression at The Cavern Club unless you want an entire venue of locals quietly judging your soul.',
+          cheekyTip: 'If someone asks if you\'re "proper sound," they aren\'t asking about your headphones—say yes.',
+          serious: 'Liverpool is one of the UK’s most walkable and culturally rich cities. Take Merseyrail for fast, cheap urban transit (tap-in or local day passes are significantly cheaper than single tickets). Visit the Royal Albert Dock for world-class museums and Bold Street for independent food.',
+          seriousTips: ['Lime Street Station connects directly to London Euston in under 2h 15m.', 'Merseyrail day passes offer unlimited travel across Merseyside.'],
+          affiliateText: '🚆 Book Trains to Liverpool Lime Street (Trainline)',
+          affiliateUrl: 'https://www.thetrainline.com'
+        },
+        {
+          id: 'edinburgh',
+          emoji: '🏰',
+          title: 'The Edinburgh Capital Guide',
+          subtitle: 'Royal Mile, Hills, & Haggis',
+          category: 'Regional Cities',
+          cheeky: 'Prepare for legs of steel. Every street in Edinburgh goes uphill both ways, and half of them are made of 400-year-old cobblestones designed to destroy your knees. Saying "it’s a bit fresh" while wearing four jackets is the only socially acceptable response.',
+          cheekyTip: 'If you hear a cannon at 1:00 PM, don\'t panic—it\'s just clock-syncing.',
+          serious: 'Edinburgh is accessible via LNER trains from London King’s Cross (4h 20m). Use Edinburgh Trams for direct links from EDI airport to Princes Street. Booking Edinburgh Castle tickets online in advance is essential to skip 2-hour queues. Lothian Buses accept direct contactless tap-on payment
