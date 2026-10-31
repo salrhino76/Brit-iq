@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brit IQ | The Cheeky vs. Serious UK Travel Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-xs font-semibold mb-4">
+        🇬🇧 Brit IQ App v2.0 • Live Travel Engine
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 bg-gradient-to-r from-slate-100 via-yellow-200 to-yellow-500 bg-clip-text text-transparent">
+        Brit IQ Travel Guide
+      </h1>
+      <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
+        The hybrid satirical & utility travel matrix for surviving the UK without blowing your budget or getting tutted at.
+      </p>
+
+      <!-- Toggle Switch -->
+      <div class="mt-8 flex justify-center">
+        <div class="bg-slate-900 p-1.5 rounded-2xl border border-slate-800 flex items-center gap-2 shadow-2xl">
+          <button id="btn-cheeky" onclick="setMode('cheeky')" class="px-6 py-3 rounded-xl font-bold text-sm transition-all bg-pink-600 text-white shadow-lg shadow-pink-600/30 scale-105">
+            🤪 Cheeky Mode
+          </button>
+          <button id="btn-serious" onclick="setMode('serious')" class="px-6 py-3 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white">
+            🧠 Serious Mode
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Category Filter Bar -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      <button onclick="filterCategory('All')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-yellow-500 text-slate-950 border-yellow-400 shadow-md">All</button>
+      <button onclick="filterCategory('Regional Cities')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700">Regional Cities</button>
+      <button onclick="filterCategory('Transport')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700">Transport</button>
+      <button onclick="filterCategory('Utility')" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700">Utility</button>
+    </div>
+
+    <!-- Main Grid -->
+    <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"></div>
+
+    <!-- Interactive Meal Deal Judge -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-12 shadow-xl">
+      <h2 class="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+        🥪 Tesco / Boots Meal Deal Judge
+      </h2>
+      <p class="text-xs text-slate-400 mb-6">Test if your lunch pick earns you Brit respect or complete lunch shame.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-2">Select Main</label>
+          <select id="meal-main" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
+            <option value="">-- Main --</option>
+            <option value="Triple Sandwiches">All-Day Breakfast Triple</option>
+            <option value="Plain Ham Sandwich">Plain Ham Sandwich</option>
+            <option value="Chicken Bacon Caesar Wrap">Chicken Caesar Wrap</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-2">Select Side</label>
+          <select id="meal-side" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
+            <option value="">-- Side --</option>
+            <option value="Sensations Crisps">McCoy's Flame Grilled Steak</option>
+            <option value="Apple">Single Granny Smith Apple</option>
+            <option value="Scotch Egg">Scotch Egg Pair</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-2">Select Drink</label>
+          <select id="meal-drink" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-200">
+            <option value="">-- Drink --</option>
+            <option value="Red Bull">Red Bull (473ml)</option>
+            <option value="Innocent Smoothie">Innocent Super Smoothie</option>
+            <option value="Tap Water">Plain Tap Water</option>
+          </select>
+        </div>
+      </div>
+
+      <button onclick="evaluateMealDeal()" class="w-full py-3 bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-lg shadow-yellow-500/10">
+        Judge My Meal Deal
+      </button>
+
+      <div id="meal-deal-result" class="hidden mt-4 p-4 bg-slate-950 border border-yellow-500/30 rounded-xl text-center font-semibold text-sm text-yellow-300"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 border-t border-slate-900 pt-6">
+      <p>© 2026 Brit IQ Travel • Standalone Web App Edition</p>
+    </footer>
+  </div>
+
+  <script>
+    let currentMode = 'cheeky';
+    let currentCategory = 'All';
+
+    const cityData = [
+      {
+        id: 'manchester',
+        emoji: '🐝',
+        title: 'The Manchester Capital Guide',
+        subtitle: 'Pubs, Grub, & Trams',
+        category: 'Regional Cities',
+        cheeky: 'Welcome to the rain capital of Western Europe. If it’s not actively raining, it’s about to rain, or you are standing under a leaking Victorian railway bridge. Dress code in the Northern Quarter requires carrying a bucket hat and acting like Oasis split up yesterday. On the Metrolink tram, staring straight ahead at the metal floor poles is mandatory—making eye contact with a fellow commuter during rush hour is punishable by public awkwardness.',
+        cheekyTip: 'Never call a barm a "roll" or a "cob" unless you want to start a 40-minute pub argument.',
+        serious: 'Manchester is the UK\'s capital of culture and northern transit. The Metrolink tram network uses contactless tap-in/tap-out readers at every platform with automated zonal daily caps (Zones 1–4). Explore the historic boozers of Castlefield (The Marble Arch, Peveril of the Peak) and craft beer havens in the Northern Quarter.',
+        seriousTips: ['Touch in and out at yellow reader posts before boarding the tram.', 'Manchester Piccadilly is the central hub for intercity rail connections.'],
+        affiliateText: '🚆 Book Trains to Manchester Piccadilly (Trainline)',
+        affiliateUrl: 'https://www.thetrainline.com'
+      },
+      {
+        id: 'london',
+        emoji: '🎡',
+        title: 'London Transit & Commute Survival',
+        subtitle: 'Tube Etiquette & Split Ticketing',
+        category: 'Transport',
+        cheeky: 'Standing on the left side of an escalator in London is considered an act of war. If you hear a quiet, aggressive "tut" behind you, prepare to move immediately. The Tube line named "Central" is actually an oven disguised as a train line during summer.',
+        cheekyTip: 'If anyone talks to you on the Tube, pretend you are dead.',
+        serious: 'London transport operates on contactless tap-in/tap-out (Oyster or bank card) with automatic daily capping across Zones 1–6. Elizabeth Line is the fastest route from Heathrow Airport to Central London. Always book advance rail tickets to save up to 
